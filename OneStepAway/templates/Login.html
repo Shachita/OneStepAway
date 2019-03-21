@@ -70,7 +70,7 @@
 <div class="split right">
      <div class="container">
       <div class="shadow-lg p-3 mb-5 bg-white rounded" >
-      <form>
+      <form action="/login" method="POST"></form>
   <div class="form-group" >
     <div class="OneStepAway">
     
@@ -78,18 +78,18 @@
     <label for="examplename"><h4>OneStepAway</h4></label>
     </div>
     <label for="exampleInputEmail1">Username or Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="email" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" id="exampleInputPassword1" name="passl" placeholder="Password">
     <a href="#">Forgot Password?</a>
   </div>
   <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Remember me</label>
   </div>
-  <button type="submit" class="btn btn-primary" id="test">Login</button>
+  <button type="submit" class="btn btn-primary" id="test" value="login">Login</button>
   <p><center>Don't have an account?<a href="#">Sign up</a></center></p>
 </form>
 </div>
