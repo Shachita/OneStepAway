@@ -1,13 +1,15 @@
-from flask import Flask, render_template, request
-
+from flask import Flask, render_template, request, redirect, url_for, flash
 #Imported for database
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 
 app=Flask(__name__)
+app.secret_key=os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/onestepawaydb'
 
 db=SQLAlchemy(app)
+
 
 class User(db.Model):
     __tablename__='user'
@@ -32,8 +34,13 @@ class Service(db.Model):
     odescribe=db.Column(db.String(80),nullable=True)
     olongitude=db.Column(db.Integer,nullable=True)
     olatitude=db.Column(db.Integer,nullable=True)
-    imagename=db.Column(db.String(120),nullable=True)
-    oimage=db.Column(db.LargeBinary,nullable=True)
+    imagename=db.Column(db.String(300))
+    oimage=db.Column(db.LargeBinary)
+
+@app.route("/profile")
+def profile():
+    return('myprofile.html')
+        
 
 
 @app.route("/login")
@@ -52,12 +59,19 @@ def home():
 def registeru():
     if request.method=='POST':
         name=request.form.get('name', False)
-        email=request.form.get('email', False)
+        emailid=request.form.get('email', False)
         password=request.form.get('pass', False)
         contact=request.form.get('phone', False)
         service=request.form.get('service', False)
         address=request.form.get('address', False)
-        entry=User(name=name, contact=contact, emailid=email,password=password, service=service, address=address )
+
+        user = User.query.filter_by(emailid=emailid).first() # if this returns a user, then the email already exists in database
+
+        if user:
+            flash('Email address already exists')
+            return redirect(url_for('registeru'))
+
+        entry=User(name=name, contact=contact, emailid=emailid,password=password, service=service, address=address )
         db.session.add(entry)
         db.session.commit()
         return render_template('login.html')
@@ -76,11 +90,18 @@ def registerb():
         odescribe=request.form.get('odescribe', False)
         olatitude=request.form.get('olatitude', False)
         olongitude=request.form.get('olongitude', False)
-        # file1=request.files['file1']
-        #  ,imagename=file1.filename , oimage=file1.read()
+        
+        
+        service1 = Service.query.filter_by(oemailid=oemailid).first() # if this returns a user, then the email already exists in database
 
+        if service1:
+            flash('Email address already exists')
+            return redirect(url_for('registerb'))
 
-        entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude)
+        file1=request.files['file1']    
+
+        
+        entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude, imagename=file1.filename, oimage=file1.read())
         db.session.add(entry2)
         db.session.commit()
         return render_template('login.html')
