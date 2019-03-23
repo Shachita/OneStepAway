@@ -116,5 +116,3 @@ def load_user(userid):
 
 if __name__ == "__main__":
     app.run(debug=True)
-    shachita is the best!
-    
