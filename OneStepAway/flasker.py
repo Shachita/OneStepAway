@@ -49,6 +49,8 @@ def register():
 def index():
     return redirect(url_for('home'))
 
+
+'''Session control added'''
 @app.route("/home")
 def home():
     if not session.get('username'):
@@ -121,7 +123,6 @@ def login():
 		emailid = request.form['email']
 		password = request.form['password']
 		try:
-            '''session control'''
 			data = User.query.filter_by(emailid=emailid , password=password)
 			if data is not None:
 				session['username'] =emailid
