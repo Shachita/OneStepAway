@@ -58,10 +58,20 @@
   width: 340px;
 }
     </style>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="alert alert-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+
+
     </head>
 <body>
     
-
+<form action="/login" method="post">
 
   <div class="split left">
     <h1><font color="white">OneStepAway!!</font></h1>
@@ -78,13 +88,13 @@
     <p><img src="C:\Users\Administrator\Desktop\new_proj\NextToYou\templates\mobius-nest-egg-logo-black.jpg" style="width:128px;height:128px"></p>
     <label for="examplename"><h4>OneStepAway</h4></label>
     </div>
-    <label for="exampleInputEmail1">Username or Email address</label>
-    <input type="email" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" name="passl" placeholder="Password">
-    <a href="#">Forgot Password?</a>
+    <input type="password" class="form-control"  name="password" placeholder="Password">
+    
   </div>
   <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -97,6 +107,6 @@
 </div>
   </div>
 
-      
+</form>
     </body>
 </html>

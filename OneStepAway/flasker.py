@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-#Imported for database
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -37,15 +37,7 @@ class Service(db.Model):
     imagename=db.Column(db.String(300))
     oimage=db.Column(db.LargeBinary)
 
-@app.route("/profile")
-def profile():
-    return('myprofile.html')
-        
 
-
-@app.route("/login")
-def login():
-    return(render_template("login.html"))
 
 @app.route("/register")
 def register():
@@ -71,7 +63,7 @@ def registeru():
             flash('Email address already exists')
             return redirect(url_for('registeru'))
 
-        entry=User(name=name, contact=contact, emailid=emailid,password=password, service=service, address=address )
+        entry=User(name=name, contact=contact, emailid=emailid,password=generate_password_hash(password, method='sha256'), service=service, address=address )
         db.session.add(entry)
         db.session.commit()
         return render_template('login.html')
@@ -101,11 +93,20 @@ def registerb():
         file1=request.files['file1']    
 
         
-        entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude, imagename=file1.filename, oimage=file1.read())
+        entry2=Service(oname=oname, bname=bname,opassword=generate_password_hash(opassword, method='sha256'), ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude, imagename=file1.filename, oimage=file1.read())
         db.session.add(entry2)
         db.session.commit()
         return render_template('login.html')
     return render_template("Registrationb.html")
+@app.route("/profile")
+def profile():
+    return('myprofile.html')
+        
+
+
+@app.route("/login",methods=['GET','POST'])
+def login():
+    return render_template('login.html')    
 
 if __name__ == "__main__":
     app.run(debug=True)
