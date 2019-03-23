@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, LoginManager
 import os
 
 
@@ -9,7 +10,8 @@ app.secret_key=os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/onestepawaydb'
 
 db=SQLAlchemy(app)
-
+login_manager=LoginManager()
+login_manager.init_app(app)
 
 class User(db.Model):
     __tablename__='user'
@@ -107,6 +109,10 @@ def profile():
 @app.route("/login",methods=['GET','POST'])
 def login():
     return render_template('login.html')    
+
+@login_manager.user_loader
+def load_user(userid):
+    return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
