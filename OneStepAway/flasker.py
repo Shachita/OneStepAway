@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager
+
 import os
 
 
@@ -10,8 +11,7 @@ app.secret_key=os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/onestepawaydb'
 
 db=SQLAlchemy(app)
-login_manager=LoginManager()
-login_manager.init_app(app)
+
 
 class User(db.Model):
     __tablename__='user'
@@ -46,8 +46,16 @@ def register():
     return render_template("Registration.html")
 
 @app.route("/")
+def index():
+    return redirect(url_for('home'))
+
+@app.route("/home")
 def home():
-    return render_template("home.html")
+    if not session.get('username'):
+        return render_template('home.html')
+    else:
+        emailid=session['username']
+        return render_template('home.html', emailid=emailid)   
 
 @app.route("/registeru",methods=['GET','POST'])
 def registeru():
@@ -65,7 +73,7 @@ def registeru():
             flash('Email address already exists')
             return redirect(url_for('registeru'))
 
-        entry=User(name=name, contact=contact, emailid=emailid,password=generate_password_hash(password, method='sha256'), service=service, address=address )
+        entry=User(name=name, contact=contact, emailid=emailid,password=password, service=service, address=address )
         db.session.add(entry)
         db.session.commit()
         return render_template('login.html')
@@ -95,7 +103,7 @@ def registerb():
         file1=request.files['file1']    
 
         
-        entry2=Service(oname=oname, bname=bname,opassword=generate_password_hash(opassword, method='sha256'), ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude, imagename=file1.filename, oimage=file1.read())
+        entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude, imagename=file1.filename, oimage=file1.read())
         db.session.add(entry2)
         db.session.commit()
         return render_template('login.html')
@@ -103,16 +111,26 @@ def registerb():
 @app.route("/profile")
 def profile():
     return('myprofile.html')
-        
 
-
-@app.route("/login",methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')    
 
-@login_manager.user_loader
-def load_user(userid):
-    return render_template("login.html")
+	if request.method == 'GET':
+		return render_template('login.html')
+	else:
+		emailid = request.form['email']
+		password = request.form['password']
+		try:
+			data = User.query.filter_by(emailid=emailid , password=password)
+			if data is not None:
+				session['username'] =emailid
+				return redirect(url_for('home'))
+			else:
+				return redirect(url_for('login'))
+		except:
+			return redirect(url_for('login'))
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
