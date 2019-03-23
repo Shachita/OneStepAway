@@ -121,6 +121,7 @@ def login():
 		emailid = request.form['email']
 		password = request.form['password']
 		try:
+            '''session control'''
 			data = User.query.filter_by(emailid=emailid , password=password)
 			if data is not None:
 				session['username'] =emailid
