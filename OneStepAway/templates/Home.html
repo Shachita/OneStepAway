@@ -14,6 +14,10 @@
 
 
 <body>
+    {% if 'username' in session %}
+    <h1>
+    {{ emailid }}</h1>
+    {%else%}
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand">
@@ -41,12 +45,14 @@
                 </div>
               </nav>
               </header>
+             
             <main role="main">
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active" data-interval="10000">
                             <div class="carousel-caption">
-                                <h1>Find the best Services!</h1>
+                                
+                                <h2>Find the best Services!</h2>
                                 <b>We provide you the best resources that too in your vicinity!
                                 <br>Wanna know who's the best in your neighborhood?<br>
                                 Our Site to your rescue!!                                    
@@ -90,7 +96,7 @@
                 </div>
             
             </main>
-
+            {% endif %}
           
            
 

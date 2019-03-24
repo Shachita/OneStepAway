@@ -53,11 +53,13 @@ def index():
 '''Session control added'''
 @app.route("/home")
 def home():
-    if not session.get('username'):
-        return render_template('home.html')
-    else:
+    if 'username' in session:
         emailid=session['username']
-        return render_template('home.html', emailid=emailid)   
+        return render_template('home.html', emailid=emailid)
+        
+    else:
+          
+        return render_template('home.html') 
 
 @app.route("/registeru",methods=['GET','POST'])
 def registeru():
