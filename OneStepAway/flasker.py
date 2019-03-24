@@ -122,10 +122,10 @@ def login():
 	if request.method == 'GET':
 		return render_template('login.html')
 	else:
-		emailid = request.form['email']
-		password = request.form['password']
+		emailid = request.form.get('email', False)
+		password = request.form.get('password',False)
 		try:
-			data = User.query.filter_by(emailid=emailid , password=password)
+			data = User.query.filter_by(emailid=emailid , password=password).first()
 			if data is not None:
 				session['username'] =emailid
 				return redirect(url_for('home'))
@@ -133,7 +133,10 @@ def login():
 				return redirect(url_for('login'))
 		except:
 			return redirect(url_for('login'))
-
+@app.route('/logout')
+def logout():
+   session.pop('username', None)
+   return redirect(url_for('home'))
 
 
 if __name__ == "__main__":
