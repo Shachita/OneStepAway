@@ -54,8 +54,8 @@ def index():
 @app.route("/home")
 def home():
     if 'username' in session:
-        emailid=session['username']
-        return render_template('home.html', emailid=emailid)
+        name=session['username']
+        return render_template('home.html', name=name)
         
     else:
           
@@ -127,7 +127,7 @@ def login():
 		try:
 			data = User.query.filter_by(emailid=emailid , password=password).first()
 			if data is not None:
-				session['username'] =emailid
+				session['username'] =data.name
 				return redirect(url_for('home'))
 			else:
 				return redirect(url_for('login'))
