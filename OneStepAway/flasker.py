@@ -64,7 +64,7 @@ def home():
 @app.route("/registeru",methods=['GET','POST'])
 def registeru():
     if request.method=='POST':
-        name=request.form.get('name', False)
+        name=request.form.get('name', False) 
         emailid=request.form.get('email', False)
         password=request.form.get('pass', False)
         contact=request.form.get('phone', False)
@@ -118,21 +118,24 @@ def profile():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
-	if request.method == 'GET':
-		return render_template('login.html')
-	else:
-		emailid = request.form.get('email', False)
-		password = request.form.get('password',False)
-		try:
-			data = User.query.filter_by(emailid=emailid , password=password).first()
-			if data is not None:
-				session['username'] =data.name
-				return redirect(url_for('home'))
-			else:
-				return redirect(url_for('login'))
-		except:
-			return redirect(url_for('login'))
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        emailid = request.form.get('email', False)
+        password = request.form.get('password',False)
+        try:
+            data = User.query.filter_by(emailid=emailid , password=password).first()
+            data1 = Service.query.filter_by(oemailid=emailid , opassword=password).first()
+            if data is not None:
+                session['username'] =data.name
+                return redirect(url_for('home'))
+            elif data1 is not None:
+                session['username'] =data1.oname
+                return redirect(url_for('home'))
+            else:
+                return redirect(url_for('login'))
+        except:
+            return redirect(url_for('login'))
 @app.route('/logout')
 def logout():
    session.pop('username', None)
