@@ -114,7 +114,7 @@ def registerb():
     return render_template("Registrationb.html")
 @app.route("/profile")
 def profile():
-    return('myprofile.html')
+    return render_template('myprofile.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
