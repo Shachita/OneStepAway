@@ -11,7 +11,7 @@ app.secret_key=os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/onestepawaydb'
 
 db=SQLAlchemy(app)
-
+'''suyash'''
 
 class User(db.Model):
     __tablename__='user'
