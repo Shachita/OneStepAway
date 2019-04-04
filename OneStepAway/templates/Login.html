@@ -30,6 +30,19 @@ background-color: #0B0C10;
   height: 40px;
   width: 340px;
 }  </style>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="alert alert-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+{% if session['logged_in'] %}
+<p>You're logged in already!</p>
+{% else %}
+{%endif%}
+
   </head>
 
     <body>
