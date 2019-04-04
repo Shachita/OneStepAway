@@ -7,49 +7,57 @@
    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}"/>
     <title>Registration Page</title>
      <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+      @import "compass/css3";
+
+body{
+  background-color: #232122;
+}
+  </style>
   </head>
   <body>
-    
-    <div class="jumbotron text-center">
-      <div class="container">
-        <h1 class="display-1" style="color: rgb(223, 203, 223)">Sign up here !</h1>
-        <p class= "lead" >Choose Your Account</p>
-      </div>
-    </div>
+    {% extends "layout.html" %}
+{% block body %}
+    <br><br><br><br>
+    <h1  align="center" style="font-family: Baskerville Old Face; color: white;text-align: center;color:#86C232">Choose your Account!</h1>
+    <br>
     <div class="container">
       <div class="row">
-        <div class="col-md-10 col-lg-6">
+        <div class="col-md-10 col-lg-6 bounceInLeft animated">
             <div class="card border-success mb-3" >
               <div class="card-block" >
-                  <a href="{{ url_for('registerb') }}">
-                <img src="https://cdn.website.thryv.com/0bf63982c1974eeab2b7cc251ee693c8/dms3rep/multi/mobile/121.jpg" class="card-img-top img-fluid">
+                  <a href="{{ url_for('registeru') }}">
+                <img src="C:\Users\Administrator\Desktop\new_proj\extra\NextToYou\templates\portrait-of-businessman-in-office-1_1262-1487.jpg" class="card-img-top img-fluid">
                 </a>
-                <h3 class="card-title text-center">Business Account</h3>
-                <p>Promote your Service on our website!</p>
-                <p>Track customers and manage your account to know more about them !</p>
-                
-
+               
+ <h3 class="card-title text-center" style="font-family: Baskerville Old Face;">User Account</h3>
+ <div style="font-family: Baskerville Old Face;"">
+                <h5>*For services and keep track of them !</h5>
+                <h5>*Build contacts, Search by location </h5>
+                </div>
               </div>
               
             </div>
         </div>
-        <div class="col-md-10 col-lg-6">
+        <div class="col-md-10 col-lg-6 bounceInRight animated">
             <div class="card border-success mb-3">
               <div class="card-block">
-                  <a href="{{ url_for('registeru') }}">
-                <img src="https://www.gov.im/media/1351971/grant-taylor-with-new-travellers-companions_343x257.jpg" class="card-img-top img-fluid">
+                  <a href="{{ url_for('registerb') }}">
+                <img src="{{ url_for('static',filename='img/user.jpg') }}" class="card-img-top img-fluid">
                 </a>
-                <h3 class="card-title text-center">User Account</h3>
-                <p>Search for services and keep track of them !</p>
-                <p>Build contacts, Search by location </p>
-                
+                 <h3 class="card-title text-center" style="font-family: Baskerville Old Face;">Business Account</h3>
+                 <div style="font-family: Baskerville Old Face;">
+                 <h5>*Promote your Service on our website!</h5>
+                  <h5>*Track customers and manage your account to know more about them ! </h5>
+                 </div>
+               
 
               </div>
               
@@ -57,6 +65,6 @@
         </div>
       </div>
     </div>
-   
+   {% endblock %}
   </body>
 </html>

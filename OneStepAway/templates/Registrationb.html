@@ -4,7 +4,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="{{url_for('static', filename='script1.js')}}"></script>
     <script>
     $(document).ready(function(){
     // Call Geo Complete
@@ -12,7 +11,119 @@
                                 });
 
     </script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+    <style>
+        @import "compass/css3";
+
+
+
+
+
+
+
+
+.register{
+    background-image: url(" {{ url_for('static',filename='img/registerb.jpg') }}");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    /*: -webkit-linear-gradient(yellowgreen, yellowgreen);*/
+    margin-top: 3%;
+    padding: 3%;
+}
+.register-left{
+    text-align: center;
+    margin-top: 5%;
+}
+.register-left input{
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    width: 60%;
+ 
+    font-weight: bold;
+    margin-top: 30%;
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+.register-right{
+    background: #f8f9fa;
+    border-top-left-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+}
+.register-left img{
+    margin-top: 15%;
+    margin-bottom: 5%;
+    width: 25%;
+    -webkit-animation: mover 2s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+
+.register-left p{
+    font-weight: lighter;
+    padding: 12%;
+    margin-top: -9%;
+}
+.register .register-form{
+    padding: 10%;
+    margin-top: 10%;
+}
+.btnRegister{
+    float: right;
+    margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: white;
+    color: black;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+}
+.register .nav-tabs{
+    margin-top: 3%;
+    border: none;
+    background: black;
+    border-radius: 1.5rem;
+    width: 28%;
+    float: right;
+}
+.register .nav-tabs .nav-link{
+    padding: 2%;
+    height: 34px;
+    font-weight: 600;
+    color: black;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+.register .nav-tabs .nav-link:hover{
+    border: none;
+}
+.register .nav-tabs .nav-link.active{
+    width: 100px;
+    color: black;
+    border: 2px solid springgreen
+    ;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+}
+.register-heading{
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: -15%;}
+
+    @media (min-width: 1200px) {
+        .navbar {
+        background:transparent;
+        height: 50px;
+        }
+    .tales {
+            width: 100%;
+          }
+   
+
+
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Optional JavaScript -->
@@ -20,59 +131,59 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <title>Business Account Registration</title>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="alert alert-danger">
-        {{ messages[0] }}. Go to <a href="{{ url_for('login') }}">login page</a>.
-    </div>
-    {% endif %}
-    {% endwith %}
+    <style>
+        body{
+            background-color: #232122;
+        }
+    </style>
+    <title>User Account Registration</title>
   </head>
   <body>
-        <div class="container register">
+   {% extends "layout.html" %}
+        {% block body %}
+        <br><br><br>
+        <h1 style="font-family: Baskerville Old Face; color: white;text-align: center;color:#86C232">Business Account!</h1> 
+        <div class="container register fadeInDown animated">
                 <div class="row">
                     <div class="col-md-3 register-left">
                         
-                        <h3>Welcome</h3>
-                        <p>Register your account here !</p>
+                        <h3 style="font-size: 40px"><b><i>Welcome</h3>
+                        <p>Register your account here !</i></b></p>
                         <br/>
                     </div>
                     <form action="/registerb" id="property" method="POST" enctype="multipart/form-data">
-                        <div class="tab-content" id="myTabContent">
+                        <div class="tab-content " id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <h3 class="register-heading">Apply as a service</h3>
+                                <b><i><h3 class="register-heading">APPLY AS USER</h3>
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            Owner name<input type="text" class="form-control" placeholder="Owner Name *" name="oname" />
+                                            Your Name<input type="text" class="form-control" placeholder="Enter Name*" name="oname" />
                                         </div>
                                         <div class="form-group">
-                                            Business Name <input type="text" class="form-control" placeholder="Business Name *" name="bname" />
+                                            Business Name <input type="text" class="form-control" placeholder=" Enter Business Name *" name="bname" />
                                         </div>
                                         <div class="form-group">
-                                            Enter Password<input type="password" id="psw" class="form-control" placeholder="Password *" name="opassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
+                                                    Password<input type="password" class="form-control" placeholder="Enter Password *" name="opassword" />
                                         </div>
                                         <div class="form-group">
-                                            Confirm Password<input type="password" class="form-control"  placeholder="Confirm Password *" value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
+                                            Confirm Password<input type="password" class="form-control"  placeholder="Enter Confirm Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            Email id<input type="email" class="form-control" placeholder="Enter Email-id *" name="oemailid" />
                                         </div>
                                     </div>
-            
-                                                      
-                                     
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            Email id<input type="email" class="form-control" placeholder="Your Email *" name="oemailid" />
+                                            Phone Number<input type="text" minlength="10" maxlength="10" class="form-control input-lg" placeholder="Enter Phone no. *" name="ocontact" />
                                         </div>
                                         <div class="form-group">
-                                            Phone no.<input type="text" minlength="10" maxlength="10" class="form-control" placeholder="Your Phone *" name="ocontact" />
-                                        </div>
-                                        <div class="form-group">
-                                                Service / Business:<select class="form-control" name="oservice">
+                                                 Business Category:<select class="form-control" name="oservice">
                                                 <option class="hidden"  >Please select your Service</option>
                                                 <option>Plumber</option>
                                                 <option>Technician</option>
                                                 <option>Tutor</option>
+                                                <option>Others</option>
                                             </select>
                                         </div>
                                        
@@ -83,14 +194,21 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            Address<input type="text" class="form-control" placeholder="Address dalo *" id="address"  name="oaddress" />
+                                            Address<input type="text" class="form-control" placeholder="Enter your Address *" id="address"  name="oaddress" />
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" name="olatitude" class="form-control" placeholder="Latitude">
-                                        </div>            
-                                        <div class="form-group">
-                                            <input type="text" name="olongitude" class="form-control" placeholder="Longitude">                
-                                        </div>
+                                        <button onclick="getLocation()">Get Location</button>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+</script>
                                         <div class="form-group">
                                                 
                                             <label for="File1">Add Photo</label>
@@ -99,7 +217,7 @@
                                         <input type="submit" class="btnRegister"  value="Register"/>
                                     </div>
                                 </div>
-                            </div>
+                            </div></i></b>
                            
            
                         </div>
@@ -109,6 +227,6 @@
 
             </div>
 
-    
+    {% endblock %}
   </body>
 </html>
