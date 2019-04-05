@@ -58,6 +58,7 @@ def home():
         name=session['username']
         return render_template('home.html', name=name)
         
+        
     else:
           
         return render_template('home.html') 
@@ -78,7 +79,8 @@ def registeru():
             flash('Email address already exists')
             return redirect(url_for('registeru'))
 
-        entry=User(name=name, contact=contact, emailid=emailid,password=password, service=service, address=address )
+
+        entry=User(name=name, contact=contact, emailid=emailid,password=password, service=service, address=address)
         db.session.add(entry)
         db.session.commit()
         return render_template('login.html')
@@ -115,7 +117,7 @@ def registerb():
     return render_template("Registrationb.html")
 @app.route("/profile")
 def profile():
-    return render_template('myprofile.html')
+    return render_template('myprofile.html', name=name)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

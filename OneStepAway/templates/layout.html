@@ -18,6 +18,7 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
        <ul class="nav justify-content-end">
     
       <ul class="nav nav-pills">
+          {% if 'username' not in session %}
       <li class="nav-item">
        <a class="nav-link" href="{{ url_for('home') }}" style="color: #86C232 ; font-size: 20px">Home</a>
       </li>
@@ -33,6 +34,10 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
       <li class="nav-item">
          <a class="nav-link" href="#" style="color:#86C232; font-size: 20px">Contact</a>
       </li>
+      {% else %}
+      <li class="nav-item">
+            <a class="nav-link" style="color:#86C232; font-size: 20px"> Welcome {{name}} </a>
+         </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: #86C232 ; font-size: 20px">Profile</a>
         <div class="dropdown-menu">
@@ -40,10 +45,11 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
            <i><a class="dropdown-item" href="#">History</a></i>
            <i><a class="dropdown-item" href="#">Settings</a></i>
           <div class="dropdown-divider"></div>
-           <i><a class="dropdown-item" href="#">Logout</a></i>
+           <i><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></i>
         </div>
-      </li>
       
+      </li>
+      {% endif %}
       
     </ul>
     </ul>
