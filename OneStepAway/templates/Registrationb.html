@@ -151,10 +151,10 @@
                         <p>Register your account here !</i></b></p>
                         <br/>
                     </div>
-                    <form action="/registerb" id="property" method="POST" enctype="multipart/form-data">
+                    <form action="/login" id="property" method="POST" enctype="multipart/form-data">
                         <div class="tab-content " id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <b><i><h3 class="register-heading">APPLY AS USER</h3>
+                                <b><i>
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -164,11 +164,82 @@
                                             Business Name <input type="text" class="form-control" placeholder=" Enter Business Name *" name="bname" />
                                         </div>
                                         <div class="form-group">
-                                                    Password<input type="password" class="form-control" placeholder="Enter Password *" name="opassword" />
+                                                    Password<input type="password" class="form-control" placeholder="Enter Password *" name="opassword" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
                                         </div>
                                         <div class="form-group">
-                                            Confirm Password<input type="password" class="form-control"  placeholder="Enter Confirm Password *" value="" />
+                                            Confirm Password<input type="password" class="form-control"  placeholder="Enter Confirm Password *" id="confirm_password" value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
                                         </div>
+                                        <script>
+                                             function myFunction() {
+        var pass1 = document.getElementById("password").value;
+        var pass2 = document.getElementById("confirm_password").value;
+        if (pass1 != pass2) {
+            //alert("Passwords Do not match");
+            document.getElementById("password").style.borderColor = "#E34234";
+            document.getElementById("confirm_password").style.borderColor = "#E34234";
+            alert("Passwords do not match.");
+        }
+    }
+                                
+                                            var myInput = document.getElementById("opassword");
+                                            var letter = document.getElementById("letter");
+                                            var capital = document.getElementById("capital");
+                                            var number = document.getElementById("number");
+                                            var length = document.getElementById("length");
+                                            
+                                            // When the user clicks on the password field, show the message box
+                                            myInput.onfocus = function() {
+                                              document.getElementById("message").style.display = "block";
+                                            }
+                                            
+                                            // When the user clicks outside of the password field, hide the message box
+                                            myInput.onblur = function() {
+                                              document.getElementById("message").style.display = "none";
+                                            }
+                                            
+                                            // When the user starts to type something inside the password field
+                                            myInput.onkeyup = function() {
+                                              // Validate lowercase letters
+                                              var lowerCaseLetters = /[a-z]/g;
+                                              if(myInput.value.match(lowerCaseLetters)) { 
+                                                letter.classList.remove("invalid");
+                                                letter.classList.add("valid");
+                                              } else {
+                                                letter.classList.remove("valid");
+                                                letter.classList.add("invalid");
+                                            }
+                                            
+                                              // Validate capital letters
+                                              var upperCaseLetters = /[A-Z]/g;
+                                              if(myInput.value.match(upperCaseLetters)) { 
+                                                capital.classList.remove("invalid");
+                                                capital.classList.add("valid");
+                                              } else {
+                                                capital.classList.remove("valid");
+                                                capital.classList.add("invalid");
+                                              }
+                                            
+                                              // Validate numbers
+                                              var numbers = /[0-9]/g;
+                                              if(myInput.value.match(numbers)) { 
+                                                number.classList.remove("invalid");
+                                                number.classList.add("valid");
+                                              } else {
+                                                number.classList.remove("valid");
+                                                number.classList.add("invalid");
+                                              }
+                                            
+                                              // Validate length
+                                              if(myInput.value.length >= 8) {
+                                                length.classList.remove("invalid");
+                                                length.classList.add("valid");
+                                              } else {
+                                                length.classList.remove("valid");
+                                                length.classList.add("invalid");
+                                              }
+                                            }
+                                            </script>
+                                            
                                         <div class="form-group">
                                             Email id<input type="email" class="form-control" placeholder="Enter Email-id *" name="oemailid" />
                                         </div>
@@ -188,13 +259,13 @@
                                         </div>
                                        
                                         <div class="form-group">
-                                            Describe Your Business<textarea name="odescribe"  cols="30">
+                                            Describe Your Business<textarea name="odescribe"  cols="30" required/>
                                                 
                                             </textarea>
                                         </div>
                                         
                                         <div class="form-group">
-                                            Address<input type="text" class="form-control" placeholder="Enter your Address *" id="address"  name="oaddress" />
+                                            Address<input type="text" class="form-control" placeholder="Enter your Address *" id="address"  name="oaddress" required/>
                                         </div>
                                         <button onclick="getLocation()">Get Location</button>
 
@@ -214,7 +285,8 @@ function getLocation() {
                                             <label for="File1">Add Photo</label>
                                             <input type="file" class="form-control-file" name="file1">
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                        <button type="submit" onclick="myFunction()" class="btnRegister"  value="Register">Register</button>
+                                       
                                     </div>
                                 </div>
                             </div></i></b>
