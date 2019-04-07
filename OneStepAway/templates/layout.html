@@ -4,7 +4,7 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
     <head>
         <style>
         .nav_bar_test{
-        opacity: 0.7;
+        opacity: 0.9;
     background-color: black;
     }
     
@@ -23,7 +23,7 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
        <a class="nav-link" href="{{ url_for('home') }}" style="color: #86C232 ; font-size: 20px">Home</a>
       </li>
      <li class="nav-item">
-      <a class="nav-link" href="#" style="color: #86C232 ; font-size: 20px">Why us?</a>
+      <a class="nav-link" href="#whyus" style="color: #86C232 ; font-size: 20px">Why us?</a>
       </li>
        <li class="nav-item">
        <a class="nav-link" href="{{ url_for('login') }}" style="color: #86C232 ; font-size: 20px">Login</a>
@@ -32,7 +32,7 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
       <a class="nav-link" href="{{ url_for('register') }}" style="color: #86C232 ; font-size: 20px">Register</a>
       </li>
       <li class="nav-item">
-         <a class="nav-link" href="#" style="color:#86C232; font-size: 20px">Contact</a>
+         <a class="nav-link" href="#contact" style="color:#86C232; font-size: 20px">Contact</a>
       </li>
       {% else %}
       <li class="nav-item">
@@ -56,9 +56,11 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
     
     </nav>
     </header>
-    
+
     {% block body %}
       
     {% endblock %}
     
-    
+    <footer>
+      <p style="color:aliceblue">© Copyright OneStepAway. All Rights Reserved</p>
+    </footer>

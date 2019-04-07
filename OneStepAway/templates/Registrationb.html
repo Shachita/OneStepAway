@@ -16,11 +16,6 @@
 
 
 
-
-
-
-
-
 .register{
     background-image: url(" {{ url_for('static',filename='img/registerb.jpg') }}");
     background-repeat: no-repeat;
@@ -141,24 +136,20 @@
   <body>
    {% extends "layout.html" %}
         {% block body %}
-        <br><br><br>
+        <br><br>
         <h1 style="font-family: Baskerville Old Face; color: white;text-align: center;color:#86C232">Business Account!</h1> 
         <div class="container register fadeInDown animated">
                 <div class="row">
                     <div class="col-md-3 register-left">
                         
-                        <h3 style="font-size: 40px"><b><i>Welcome</h3>
-                        <p>Register your account here !</i></b></p>
+                        <h3 style="font-size: 40px ;font-family: Baskerville Old Face;"><b>Welcome</h3>
+                        <p  style="font-family: Baskerville Old Face;">Register your account here !</b></p>
                         <br/>
                     </div>
-                    <form action="/login" id="property" method="POST" enctype="multipart/form-data">
+                    <form action="/login" id="property" method="POST" enctype="multipart/form-data" style="font-family: Baskerville Old Face; font-size: 18px">
                         <div class="tab-content " id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-<<<<<<< HEAD
-                                <b><i>
-=======
-                                <b><i><h3 class="register-heading">APPLY AS SERVICE</h3>
->>>>>>> 39322a4193a592bc5c5d96d42a5e8c15730aa7d1
+                               
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -173,16 +164,16 @@
                                         <div class="form-group">
                                             Confirm Password<input type="password" class="form-control"  placeholder="Enter Confirm Password *" id="confirm_password" value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
                                         </div>
+                                        <span id="messages"></span><br>
                                         <script>
                                              function myFunction() {
         var pass1 = document.getElementById("password").value;
         var pass2 = document.getElementById("confirm_password").value;
         if (pass1 != pass2) {
             //alert("Passwords Do not match");
-            document.getElementById("password").style.borderColor = "#E34234";
-            document.getElementById("confirm_password").style.borderColor = "#E34234";
-            alert("Passwords do not match.");
-        }
+            document.getElementById("messages").innerHTML="**Password do not match";
+                
+             }
     }
                                 
                                             var myInput = document.getElementById("opassword");
@@ -242,6 +233,15 @@
                                                 length.classList.add("invalid");
                                               }
                                             }
+                                            function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
                                             </script>
                                             
                                         <div class="form-group">
@@ -289,11 +289,11 @@ function getLocation() {
                                             <label for="File1">Add Photo</label>
                                             <input type="file" class="form-control-file" name="file1">
                                         </div>
-                                        <button type="submit" onclick="myFunction()" class="btnRegister"  value="Register">Register</button>
+                                        <button type="submit" id="btnSubmit" onclick="return Validate()"  class="btnRegister"  value="Register">Register</button>
                                        
                                     </div>
                                 </div>
-                            </div></i></b>
+                            </div></b>
                            
            
                         </div>
