@@ -2,15 +2,20 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
-from base64 import b64encode
-
 import os
+
+
+UPLOAD_FOLDER='static/img/userimages/'
+ALLOWED_EXTENSIONS=set(['jpg','png'])
+
+
 
 
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/onestepawaydb'
+
 
 db=SQLAlchemy(app)
 
@@ -85,7 +90,11 @@ def registeru():
         db.session.add(entry)
         db.session.commit()
         return render_template('login.html')
-    return render_template('Registrationu.html')    
+    return render_template('Registrationu.html')
+
+def allowed_file(imagename):
+    return '.' in imagename and \
+        imagename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS
 
 @app.route("/registerb",methods=['GET','POST'])
 def registerb():
@@ -108,10 +117,15 @@ def registerb():
             flash('Email address already exists')
             return redirect(url_for('registerb'))
 
-        file1=request.files['file1']
+        file=request.files['file1']
+        imagename= oemailid + '.jpg'
+        if file and allowed_file(file.filename):
+            file.save(os.path.join('static/img/userimages/',imagename))
+
+
 
         
-        entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude, imagename=file1.filename, oimage=file1.read())
+        entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude ,imagename=imagename)
         db.session.add(entry2)
         db.session.commit()
         return render_template('login.html')
@@ -142,9 +156,13 @@ def login():
                 session['emailid']=data1.oemailid
                 session['contact']=data1.ocontact
                 session['address']=data1.oaddress
+                session['imagename']= data1.imagename
 
-                global image
-                image = b64encode(data1.oimage)
+                
+               
+
+                
+                
                 
 
                 return redirect(url_for('home'))
@@ -160,7 +178,7 @@ def profile():
         emailid=session['emailid']
         contact=session['contact']
         address=session['address']
-        
+        image=session['imagename']
         return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact, image=image)
 @app.route('/logout')
 def logout():
@@ -173,4 +191,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=5002)
