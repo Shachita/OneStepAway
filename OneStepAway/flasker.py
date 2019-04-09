@@ -2,17 +2,18 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
+from base64 import b64encode
 
 import os
 
-#Hey
+
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/onestepawaydb'
 
 db=SQLAlchemy(app)
-'''suyash patodi'''
+
 
 class User(db.Model):
     __tablename__='user'
@@ -107,7 +108,7 @@ def registerb():
             flash('Email address already exists')
             return redirect(url_for('registerb'))
 
-        file1=request.files['file1']    
+        file1=request.files['file1']
 
         
         entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude, imagename=file1.filename, oimage=file1.read())
@@ -115,9 +116,7 @@ def registerb():
         db.session.commit()
         return render_template('login.html')
     return render_template("Registrationb.html")
-@app.route("/profile")
-def profile():
-    return render_template('myprofile.html', name=name)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -131,17 +130,45 @@ def login():
             data1 = Service.query.filter_by(oemailid=emailid , opassword=password).first()
             if data is not None:
                 session['username'] =data.name
+                session['service']=data.service
+                session['emailid']=data.emailid
+                session['contact']=data.contact
+                session['address']=data.address
+
                 return redirect(url_for('home'))
             elif data1 is not None:
                 session['username'] =data1.oname
+                session['service']=data1.oservice
+                session['emailid']=data1.oemailid
+                session['contact']=data1.ocontact
+                session['address']=data1.oaddress
+
+                global image
+                image = b64encode(data1.oimage)
+                
+
                 return redirect(url_for('home'))
             else:
                 return redirect(url_for('login'))
         except:
-            return redirect(url_for('login'))
+            return redirect(url_for('home'))
+@app.route("/profile")
+def profile():
+    if 'username' in session:
+        name=session['username']
+        service=session['service']
+        emailid=session['emailid']
+        contact=session['contact']
+        address=session['address']
+        
+        return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact, image=image)
 @app.route('/logout')
 def logout():
    session.pop('username', None)
+   session.pop('service', None)
+   session.pop('address', None)
+   session.pop('contact', None)
+   session.pop('emailid', None)
    return redirect(url_for('home'))
 
 

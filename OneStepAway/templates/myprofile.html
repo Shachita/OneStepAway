@@ -12,27 +12,32 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
     <title>My profile</title>
-</head>
-<body class="myprofile">
     
+</head>
+<body>
 
+        {% extends "layout.html" %}
+ {% block body %}    
+<br>
+<br>
+<br>
 
-<div class="container emp-profile">
-            <form method="post">
+<div class="container register">
+            
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                                <img src="data:;base64,{{ image }}"/>
                             
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                        Kshiti Ghelani
+                                        {{name}}
                                     </h5>
                                     <h6>
-                                        Web Developer and Designer
+                                        {{service}}
                                     </h6>
                                     <p class="proile-rating">RANKINGS : <span>8/10</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -67,20 +72,13 @@
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>User Id</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Kshiti123</p>
-                                            </div>
-                                        </div>
+                                       
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Name</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Kshiti Ghelani</p>
+                                                <p>{{name}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -88,7 +86,7 @@
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>kshitighelani@gmail.com</p>
+                                                <p>{{emailid}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -96,7 +94,7 @@
                                                 <label>Phone</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>123 456 7890</p>
+                                                <p>{{contact}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -104,7 +102,7 @@
                                                 <label>Profession</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Web Developer and Designer</p>
+                                                <p>{{service}}</p>
                                             </div>
                                         </div>
                             </div>
@@ -159,7 +157,8 @@
                         </div>
                     </div>
                 </div>
-            </form>           
+                      
         </div>
+        {% endblock %}
 </body>
 </html>
