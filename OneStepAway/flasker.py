@@ -220,4 +220,8 @@ def logout():
 
 if __name__ == "__main__":
     #app.run(host='0.0.0.0',port=5002)
+<<<<<<< HEAD
     app.run(debug=True)
+=======
+    app.run(debug= True)
+>>>>>>> baad39e9c9b963c669d12cb7f647bc9ad279d115
