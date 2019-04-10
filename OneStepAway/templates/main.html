@@ -13,7 +13,15 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+$(function() {
+    $('#Control').change(function() {
+        this.form.submit();
+    });
+});
+</script>
 </head>
+
 <body>
         {% extends "layout.html" %}
         {% block body %}
@@ -45,25 +53,23 @@
             </section>
             <section class="search-sec">
                 <div class="container">
-                    <form action="#" method="post" novalidate="novalidate">
+                    <form action="/main" method="POST" novalidate="novalidate" >
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                                <button type="button" onclick="getLocation()">Try It</button>
+                                                <input type="hidden" id="latitude" name="latitude" />
+                                                <input type="hidden" id="longitude" name="longitude" />
+                                        </div>
+                                    
                                     <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                        <input type="text" class="form-control search-slt" placeholder="Enter Pickup City">
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                        <input type="text" class="form-control search-slt" placeholder="Enter Drop City">
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                        <select class="form-control search-slt" id="exampleFormControlSelect1">
-                                            <option>Select Vehicle</option>
-                                            <option>Example one</option>
-                                            <option>Example one</option>
-                                            <option>Example one</option>
-                                            <option>Example one</option>
-                                            <option>Example one</option>
-                                            <option>Example one</option>
+                                        <select  name="searchbar"  class="form-control search-slt" id="Control">
+                                            <option>Select Service</option>
+                                            <option>Plumber</option>
+                                            <option>Technician</option>
+                                            <option>Tutor</option>
+                                        
                                         </select>
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12 p-0">
@@ -87,7 +93,7 @@
                                 {% for search in searches %}
                                 <article class="search-result row">
                                     <div class="col-xs-12 col-sm-12 col-md-3">
-                                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>
+                                        <a href="#" title="Lorem ipsum" class="thumbnail"><img width=60% src="static/img/userimages/{{search.imagename}}"/></a>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-2">
                                         <ul class="meta-search">
@@ -97,17 +103,35 @@
                                         </ul>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                                        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                                        <h3><a href="#" title=""></a></h3>
+                                        <p>{{search.bname }}</p>						
                                         <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
                                     </div>
                                     <span class="clearfix borda"></span>
                                 </article>
-                        
+                                {% endfor %}
                                 		
                         
                             </section>
                         </div>
+                        <script>
+                        function getLocation() {
+                            if (navigator.geolocation) {
+                              navigator.geolocation.getCurrentPosition(showPosition);
+                            } else {
+                              x.innerHTML = "Geolocation is not supported by this browser.";
+                            }
+                          }
+                          
+                          function showPosition(position) {
+                            let latitude=position.coords.latitude;
+                            let longitude=position.coords.longitude;
+                            document.getElementById('latitude').value = latitude;
+                            document.getElementById('longitude').value = longitude;
+                            console.log(latitude)
+                          }
+                          
+                          </script>
 
 
 

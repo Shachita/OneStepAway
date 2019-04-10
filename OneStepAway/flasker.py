@@ -48,15 +48,18 @@ class Service(db.Model):
     olatitude=db.Column(db.Integer,nullable=True)
     imagename=db.Column(db.String(300))
     oimage=db.Column(db.LargeBinary)
-@app.route("/main")
+@app.route("/main",methods=['GET','POST'])
 def main():
-    searchbar=request.form.get('searchbar', False) 
+    if request.method=='POST':
+        searchbar=request.form.get('searchbar', False) 
 
-    searches = Service.query.filter_by(Service.oservice=searchbar).all()
+        searches = Service.query.filter_by(oservice=searchbar).all()
+
+        '''SORT BY TAKING LOGITUDE AND LATITUDE FROM SEARCHES '''
 
 
-    return render_template("main.html",searches=searches)
-
+        return render_template("main.html",searches=searches)
+    return render_template("main.html")
 
 @app.route("/register")
 def register():
