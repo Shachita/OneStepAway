@@ -18,19 +18,20 @@
 
         {% extends "layout.html" %}
  {% block body %}    
-<br>
-<br>
-<br>
 
 <div class="container register">
-            
+
+        
                 <div class="row">
+                        {% if session['blogin'] %}
                     <div class="col-md-4">
                         <div class="profile-img">
                                 <img width=60% src="static/img/userimages/{{image}}"/>
-                            
+                                
                         </div>
                     </div>
+                    {% else %}
+                    {% endif %}
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
@@ -55,11 +56,11 @@
                                 {% endif %}
                             </ul>
                         </div>
-                    </div>
+                 <!--  </div>
                     <div class="col-md-2">
                         <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-4">
                      
@@ -149,8 +150,8 @@
                         </div>
                     </div>
                 </div>
-
-        </div>
+                        {% include 'map.html' %}
+                            </div>
         {% endblock %}
 </body>
 </html>

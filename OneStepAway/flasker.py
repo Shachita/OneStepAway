@@ -5,7 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import re
 import json
-from urllib.request import Request,urlopen
+import folium
+from folium.plugins import MarkerCluster
 
 UPLOAD_FOLDER='static/img/userimages/'
 ALLOWED_EXTENSIONS=set(['jpg','png'])
@@ -70,6 +71,7 @@ def home():
         
         
     else:
+        
           
         return render_template('home.html') 
 
@@ -113,10 +115,10 @@ def registerb():
         odescribe=request.form.get('odescribe', False)
         olatitude=request.form.get('olatitude', False)
         olongitude=request.form.get('olongitude', False)
+
+        
        
-
-      
-
+        
 
         service1 = Service.query.filter_by(oemailid=oemailid).first() # if this returns a user, then the email already exists in database
 
@@ -198,6 +200,15 @@ def profile():
             latitude=session['olatitude']
             longitude=session['olongitude']
             describe=session['odescribe']
+
+            boulder_coords = [latitude,longitude]
+
+            my_map = folium.Map(location = boulder_coords, zoom_start = 30)
+            
+            folium.Marker([latitude,longitude],popup='This is location').add_to(my_map)
+
+            my_map.save('templates/map.html')
+            
             return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact, image=image,bname=bname,latitude=latitude,longitude=longitude,describe=describe)
         elif session['userlogin']:
             name=session['username']
@@ -205,6 +216,7 @@ def profile():
             emailid=session['emailid']
             contact=session['contact']
             address=session['address']
+
             return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact)
 
         
