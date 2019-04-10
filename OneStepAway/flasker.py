@@ -50,7 +50,12 @@ class Service(db.Model):
     oimage=db.Column(db.LargeBinary)
 @app.route("/main")
 def main():
-    return render_template("main.html")
+    searchbar=request.form.get('searchbar', False) 
+
+    searches = Service.query.filter_by(Service.oservice=searchbar).all()
+
+
+    return render_template("main.html",searches=searches)
 
 
 @app.route("/register")
