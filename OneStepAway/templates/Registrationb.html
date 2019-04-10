@@ -280,19 +280,13 @@
                                         <div class="form-group">
                                             Address<input type="text" class="form-control" placeholder="Enter your Address *" id="address"  name="oaddress" required/>
                                         </div>
-                                        <button type="button" onclick="getLocation()">Get Location</button>
+                                        <p>Click the button to get your coordinates.</p>
+                                        <button type="button" onclick="getLocation()">Try It</button>
 
-<script>
-var x = document.getElementById("demo");
+                                        <input type="hidden" id="latitude" name="olatitude" />
+                                        <input type="hidden" id="longitude" name="olongitude" />
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-</script>
+                                       
                                         <div class="form-group">
                                                 
                                             <label for="File1">Add Photo</label>
@@ -311,6 +305,27 @@ function getLocation() {
                 </div>
 
             </div>
+           
+            <script>
+             
+                function getLocation() {
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                  } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                  }
+                }
+                
+                function showPosition(position) {
+                  let latitude=position.coords.latitude;
+                  let longitude=position.coords.longitude;
+                  document.getElementById('latitude').value = latitude;
+                  document.getElementById('longitude').value = longitude;
+
+                }
+                
+                </script>
+                    
 
     {% endblock %}
   </body>

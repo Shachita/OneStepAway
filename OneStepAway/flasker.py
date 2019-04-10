@@ -3,7 +3,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 import os
-
+import re
+import json
+from urllib.request import Request,urlopen
 
 UPLOAD_FOLDER='static/img/userimages/'
 ALLOWED_EXTENSIONS=set(['jpg','png'])
@@ -45,7 +47,9 @@ class Service(db.Model):
     olatitude=db.Column(db.Integer,nullable=True)
     imagename=db.Column(db.String(300))
     oimage=db.Column(db.LargeBinary)
-
+@app.route("/main")
+def main():
+    return render_template("main.html")
 
 
 @app.route("/register")
@@ -74,8 +78,8 @@ def registeru():
     if request.method=='POST':
         name=request.form.get('name', False) 
         emailid=request.form.get('email', False)
-        password=request.form.get('pass', False)
-        contact=request.form.get('phone', False)
+        password=request.form.get('password', False)
+        contact=request.form.get('contact', False)
         service=request.form.get('service', False)
         address=request.form.get('address', False)
 
@@ -109,8 +113,11 @@ def registerb():
         odescribe=request.form.get('odescribe', False)
         olatitude=request.form.get('olatitude', False)
         olongitude=request.form.get('olongitude', False)
-        
-        
+       
+
+      
+
+
         service1 = Service.query.filter_by(oemailid=oemailid).first() # if this returns a user, then the email already exists in database
 
         if service1:
@@ -143,21 +150,28 @@ def login():
             data = User.query.filter_by(emailid=emailid , password=password).first()
             data1 = Service.query.filter_by(oemailid=emailid , opassword=password).first()
             if data is not None:
+                session['userlogin']=True
                 session['username'] =data.name
                 session['service']=data.service
                 session['emailid']=data.emailid
                 session['contact']=data.contact
                 session['address']=data.address
+                session['blogin']=False
 
                 return redirect(url_for('home'))
             elif data1 is not None:
+                session['blogin']=True
                 session['username'] =data1.oname
                 session['service']=data1.oservice
                 session['emailid']=data1.oemailid
                 session['contact']=data1.ocontact
                 session['address']=data1.oaddress
                 session['imagename']= data1.imagename
-
+                session['bname']=data1.bname
+                session['olatitude']=float(data1.olatitude)
+                session['olongitude']=float(data1.olongitude)
+                session['odescribe']=data1.odescribe
+                session['userlogin']=False
                 
                
 
@@ -173,13 +187,27 @@ def login():
 @app.route("/profile")
 def profile():
     if 'username' in session:
-        name=session['username']
-        service=session['service']
-        emailid=session['emailid']
-        contact=session['contact']
-        address=session['address']
-        image=session['imagename']
-        return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact, image=image)
+        if session['blogin']:
+            name=session['username']
+            service=session['service']
+            emailid=session['emailid']
+            contact=session['contact']
+            address=session['address']
+            image=session['imagename']
+            bname=session['bname']
+            latitude=session['olatitude']
+            longitude=session['olongitude']
+            describe=session['odescribe']
+            return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact, image=image,bname=bname,latitude=latitude,longitude=longitude,describe=describe)
+        elif session['userlogin']:
+            name=session['username']
+            service=session['service']
+            emailid=session['emailid']
+            contact=session['contact']
+            address=session['address']
+            return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact)
+
+        
 @app.route('/logout')
 def logout():
    session.pop('username', None)
@@ -191,4 +219,5 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=5002)
+    #app.run(host='0.0.0.0',port=5002)
+    app.run(debug=True)
