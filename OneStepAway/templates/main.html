@@ -20,6 +20,26 @@ $(function() {
     });
 });
 </script>
+
+<script>
+             
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
+        
+        function showPosition(position) {
+          let latitude=position.coords.latitude;
+          let longitude=position.coords.longitude;
+          document.getElementById('mlatitude').value = latitude;
+          document.getElementById('mlongitude').value = longitude;
+
+        }
+        
+        </script>
 </head>
 
 <body>
@@ -59,8 +79,8 @@ $(function() {
                                 <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                                 <button type="button" onclick="getLocation()">Try It</button>
-                                                <input type="hidden" id="latitude" name="latitude" />
-                                                <input type="hidden" id="longitude" name="longitude" />
+                                                <input type="hidden" id="mlatitude" name="latitude" />
+                                                <input type="hidden" id="mlongitude" name="longitude" />
                                         </div>
                                     
                                     <div class="col-lg-3 col-md-3 col-sm-12 p-0">
@@ -90,7 +110,7 @@ $(function() {
                             </hgroup>
                         
                             <section class="col-xs-12 col-sm-6 col-md-12">
-                                {% for search in searches %}
+                                {% for search in mysearches %}
                                 <article class="search-result row">
                                     <div class="col-xs-12 col-sm-12 col-md-3">
                                         <a href="#" title="Lorem ipsum" class="thumbnail"><img width=60% src="static/img/userimages/{{search.imagename}}"/></a>
@@ -114,24 +134,6 @@ $(function() {
                         
                             </section>
                         </div>
-                        <script>
-                        function getLocation() {
-                            if (navigator.geolocation) {
-                              navigator.geolocation.getCurrentPosition(showPosition);
-                            } else {
-                              x.innerHTML = "Geolocation is not supported by this browser.";
-                            }
-                          }
-                          
-                          function showPosition(position) {
-                            let latitude=position.coords.latitude;
-                            let longitude=position.coords.longitude;
-                            document.getElementById('latitude').value = latitude;
-                            document.getElementById('longitude').value = longitude;
-                            console.log(latitude)
-                          }
-                          
-                          </script>
 
 
 
