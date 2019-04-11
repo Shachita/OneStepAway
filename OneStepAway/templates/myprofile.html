@@ -152,7 +152,9 @@
                     
          
                 </div>
+                {% if session['blogin'] %}
                         {% include 'map.html' %}
+                {% endif %}
                             </div>
         {% endblock %}
 </body>
