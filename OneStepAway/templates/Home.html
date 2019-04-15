@@ -91,12 +91,12 @@ img {
 body{
    background-image: linear-gradient(45deg,rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url('{{ url_for('static',filename='img/170417-cellphone-use-driving-feature.jpg') }}');
    background-repeat: no-repeat;
-    background-position: left;
-    background-size: 1400px 700px;
+    background-position: :left;
+    background-size: 100vw 100vh;
     width: 100%;
-    height: 600px;
+    
     background-color: #0B0C10;
-}
+}/*
 .btn-round-lg{
 border-radius: 22.5px;
 }
@@ -110,9 +110,33 @@ border-radius: 15px;
 border-radius: 11px;
 padding-left: 10px;
 padding-right: 10px;
+}*/
+@keyframes animate{
+  0% {
+      background-position: 0%
+  }  
+  100% {
+      background-position: 400%;
+  }
+}
+.btn {
+    position: relative;
+    padding: 1rem;
+    border-radius: 2rem;
+    font-size: 22px;
+    border: none;
+    color: #fff;
+    background: linear-gradient(90deg, #03a9f4,#f441a5,#ffeb3b,#03a9f4);
+    background-size: 400%;
+    z-index: inherit 1;
+}
+.btn:hover::before{
+    opacity: 1;
+    filter: blur(20px);
+    animation: animate 8s linear infinite;
+
 }
 
- 
 
 #jumbo_back{
   background-color: #0B0C10;
@@ -128,6 +152,8 @@ padding-right: 10px;
         <div class="fadeInDown animated">
        <div style="text-align: center;">
   <font size="80px" style="font-family: Imprint MT Shadow; color: #86C232" ><br><b>Welcome to OneStepAway</b></font></div>
+  <button class="btn">Search the best!!</button>
+  
   <div class="content_test "  style=" color: black">
 
    <font size="6px" style="font-family: 'Vollkorn', serif; color: #86C232"><br><br><br><br>Find best services at one click!</font>
