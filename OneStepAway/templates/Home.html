@@ -152,7 +152,7 @@ padding-right: 10px;
         <div class="fadeInDown animated">
        <div style="text-align: center;">
   <font size="80px" style="font-family: Imprint MT Shadow; color: #86C232" ><br><b>Welcome to OneStepAway</b></font></div>
-  <button class="btn">Search the best!!</button>
+  
   
   <div class="content_test "  style=" color: black">
 
@@ -165,6 +165,15 @@ padding-right: 10px;
                   <button type="button" class="button btn btn-default btn-round-lg btn-lg">Large button</button>
                 </p>-->
               </div>
+              <br>
+              {% if 'username' in session %}
+<form action="/main">
+              <div class="wrapper" style="text-align: center">
+                <button class="btn">Search the best!!</button>
+              </div>
+            </form>
+            {% else %}
+            {% endif %}
   </div>
 <br><br><br><br><br><br><br><br><br><br><br>
 <h1 style="font-family: 'Acme', sans-serif; color: #86C232;text-align: center;" id="whyus">Why us?</h1>
