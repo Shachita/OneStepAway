@@ -19,7 +19,7 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
                 #google_translate_element {
   position: absolute;
  
-  left: 600px!important;
+  left: 800px!important;
   
 }
 .goog-te-gadget {
@@ -76,9 +76,7 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
     display: none;
 }
 
-// ============ HIDE TOP BAR ============ 
-.goog-te-banner-frame.skiptranslate {display: none!important;} 
-body {top: 0px!important;}
+
 
 /* ================================== *\
     Mediaqueries
@@ -110,16 +108,14 @@ body {top: 0px!important;}
      <nav  class="navbar nav_bar_test fixed-top" style="font-family: 'Cormorant', serif;">
             <a class="navbar-brand" href="{{ url_for('home') }}" style="font-size: 30px; color: #86C232 ;">
               <img src="{{ url_for('static',filename='img/logo.png') }}"width="50" height="50" class="d-inline-block align-top" alt="">
-       <b>OneStepAway</b>
+       <b><span class="notranslate">OneStepAway</span></b>
       </a>
        <ul class="nav justify-content-end">
     
       <ul class="nav nav-pills">
           {% if 'username' not in session %}
           
-          <li class="nav-item" >
-            <div id="google_translate_element"   ></div>
-          </li>
+          
       <li class="nav-item">
        <a class="nav-link" href="{{ url_for('home') }}" style="color: #86C232 ; font-size: 20px">Home</a>
       </li>
@@ -136,12 +132,10 @@ body {top: 0px!important;}
          <a class="nav-link" href="#contact" style="color:#86C232; font-size: 20px">Contact</a>
       </li>
       {% else %}
-      <li class="nav-item dropdown" >
-        <div id="google_translate_element" ></div>
-      </li>
-      <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main') }}" style="color: #86C232 ; font-size: 20px">Search Services</a>
-           </li>
+      <li class="nav-item" >
+            <div id="google_translate_element"   ></div>
+          </li>
+      
       <li class="nav-item">
             <a class="nav-link" style="color:#86C232; font-size: 20px"> Welcome {{name}} </a>
          </li>
@@ -169,5 +163,5 @@ body {top: 0px!important;}
     {% endblock %}
     
     <footer>
-      <p style="color:aliceblue">© Copyright OneStepAway. All Rights Reserved</p>
+      <p style="color:aliceblue; text-align: center" >© Copyright OneStepAway. All Rights Reserved</p>
     </footer>

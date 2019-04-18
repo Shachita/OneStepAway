@@ -53,44 +53,44 @@ class Service(db.Model):
 @app.route("/main",methods=['GET','POST'])
 def main():
     if request.method=='POST':
-        
-        searchbar=request.form.get('searchbar', False) 
+        try:
+            searchbar=request.form.get('searchbar', False) 
 
-        searches = Service.query.filter_by(oservice=searchbar).all()
-        print(searches)
-        '''SORT BY TAKING LOGITUDE AND LATITUDE FROM SEARCHES '''
-        latitude=request.form.get('latitude', False)
-        longitude=request.form.get('longitude', False)
-        '''radius of earth'''
-        R = 6373.0
-        keylist=[]
-        for searcher in searches:
-            lat1=radians(float(latitude))
-            lon1=radians(float(longitude))
-            lat2=radians(searcher.olatitude)
-            lon2=radians(searcher.olongitude)
-            dlon = lon2 - lon1
-            dlat = lat2 - lat1
+            searches = Service.query.filter_by(oservice=searchbar).all()
+            print(searches)
+            '''SORT BY TAKING LOGITUDE AND LATITUDE FROM SEARCHES '''
+            latitude=request.form.get('latitude', False)
+            longitude=request.form.get('longitude', False)
+            '''radius of earth'''
+            R = 6373.0
+            keylist=[]
+            for searcher in searches:
+                lat1=radians(float(latitude))
+                lon1=radians(float(longitude))
+                lat2=radians(searcher.olatitude)
+                lon2=radians(searcher.olongitude)
+                dlon = lon2 - lon1
+                dlat = lat2 - lat1
 
-            a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-            c = 2 * atan2(sqrt(a), sqrt(1 - a))
-            distance1= R * c
-            distance=float("{0:.5f}".format(distance1))
+                a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+                c = 2 * atan2(sqrt(a), sqrt(1 - a))
+                distance1= R * c
+                distance=float("{0:.5f}".format(distance1))
 
-            keylist.append(distance)
-        print(keylist)
-        di=dict(zip(searches,keylist))
-        print(di)
-        res = list(sorted(di, key=di.__getitem__))
-        print(res)
-        mysearches=res
-        print(mysearches)
+                keylist.append(distance)
+            print(keylist)
+            di=dict(zip(searches,keylist))
+            print(di)
+            res = list(sorted(di, key=di.__getitem__))
+            print(res)
+            mysearches=res
+            print(mysearches)
 
-        return render_template("main.html",mysearches=mysearches)
-        '''except:
+            return render_template("main.html",mysearches=mysearches)
+        except:
             error=True
             error="PLEASE CLICK LOCATION BUTTON TO GRANT YOUR LOCATION"
-            return render_template("main.html",error=error)'''
+            return render_template("main.html",error=error)
 
     return render_template("main.html")
 
