@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Home Page</title>
-        
+        <link rel="shortcut icon" href="{{url_for('static',filename='img/favicon.ico')}}" type="image/x-icon">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -96,47 +96,88 @@ body{
     background-size: 100vw 100vh;
     width: 100%;
     
-    background-color: #0B0C10;
-}/*
-.btn-round-lg{
-border-radius: 22.5px;
+    background-color: #0B0C10;}
+    
+    .cubeshape {
+	width: 300px;
+	text-align: center;
+	margin: 0 auto;
+	height: 60px;
+  text-transform: capitalize;
+	font-family: 'Acme', sans-serif ;
 }
-.btn-round{
-border-radius: 17px;
+
+
+
+
+.cubeshape a {
+	color: rgba(0, 0, 0, 0.836);
+	text-decoration:none ;
+	width: 300px;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
-.btn-round-sm{
-border-radius: 15px;
+
+.container-button {
+	position: absolute;
+	top: 26%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 800px;
+	text-align: center;
+    
 }
-.btn-round-xs{
-border-radius: 11px;
-padding-left: 10px;
-padding-right: 10px;
-}*/
-@keyframes animate{
-  0% {
-      background-position: 0%
-  }  
-  100% {
-      background-position: 400%;
-  }
+
+/******************/
+/**** BUTTON 1 ****/
+.toggle-button {
+	display: inline-block;
+    vertical-align: middle;
 }
-.btn {
+
+.cube {
+
+	-webkit-transition: -webkit-transform .33s;
+	transition: transform .33s; /* Animate the transform properties */
+
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d; 
+}
+
+
+.first_cube,.second_cube {
+	 background: #86C232;
+	height: 60px;
+	width: 100%;
     position: relative;
-    padding: 1rem;
-    border-radius: 2rem;
-    font-size: 22px;
-    border: none;
-    color: #fff;
-    background: linear-gradient(90deg, #03a9f4,#f441a5,#ffeb3b,#03a9f4);
-    background-size: 400%;
-    z-index: inherit 1;
 }
-.btn:hover::before{
-    opacity: 1;
-    filter: blur(20px);
-    animation: animate 8s linear infinite;
+
+.first_cube {
+	border-bottom: 4px solid black;
+	-webkit-transform: translateZ(30px);
+	transform: translateZ(30px);
+    border-radius: 10px;
+}
+
+.second_cube {
+	border-top: 4px solid black;
+	/* margin-top: -2px; */
+	 -webkit-transform: rotateX(-90deg) translateZ(-30px);
+	transform: rotateX(-90deg) translateZ(-30px); 
+    border-radius: 10px;
+
+	
+}
+
+.cube:hover {
+	 -webkit-transform: rotateX(89deg);
+	transform: rotateX(89deg); 
 
 }
+
+
+
 
 
 #jumbo_back{
@@ -152,6 +193,7 @@ padding-right: 10px;
         {% block body %}
         <div class="fadeInDown animated">
        <div style="text-align: center;">
+        <br>
   <font size="80px" style="font-family: Imprint MT Shadow; color: #86C232" ><br><b>Welcome to OneStepAway</b></font></div>
   
   
@@ -168,11 +210,19 @@ padding-right: 10px;
               </div>
               <br>
               {% if 'username' in session %}
-<form action="/main">
-              <div class="wrapper" style="text-align: center">
-                <button class="btn">Search the best!!</button>
-              </div>
-            </form>
+
+    <div class="container-button">
+        <div class="toggle-button">
+          <div class="cubeshape cube">
+            <div class="first_cube" >
+             <a href="#" style="padding:12px 6px ">Get the best services </a>
+            </div>
+            <div class="second_cube">
+              <a href="{{ url_for('main') }}" style="padding:12px 6px ">Search</a>
+            </div>
+          </div>
+        </div>
+            
             {% else %}
             {% endif %}
   </div>
