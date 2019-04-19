@@ -133,9 +133,12 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
          <a class="nav-link" href="#contact" style="color:#86C232; font-size: 20px">Contact</a>
       </li>
       {% else %}
-      <li class="nav-item" >
+      {% if session['home'] %}
+      <li class="nav-item " >
             <div id="google_translate_element"   ></div>
           </li>
+        {% else %}
+        {% endif %}
       
       <li class="nav-item">
             <a class="nav-link" style="color:#86C232; font-size: 20px"> Welcome {{name}} </a>
@@ -152,6 +155,7 @@ IN THIS PAGE WRITE THE CODE FOR HEADER AND FOOTER AND THEN INHERIT IN EACH OF TH
       
       </li>
       {% endif %}
+      
       
     </ul>
     </ul>

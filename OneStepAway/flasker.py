@@ -54,6 +54,7 @@ class Service(db.Model):
 def main():
     if request.method=='POST':
         try:
+            session['home']=False
             searchbar=request.form.get('searchbar', False) 
 
             searches = Service.query.filter_by(oservice=searchbar).all()
@@ -91,21 +92,24 @@ def main():
             error=True
             error="PLEASE CLICK LOCATION BUTTON TO GRANT YOUR LOCATION"
             return render_template("main.html",error=error)
-
+    session['home']=False
     return render_template("main.html")
 
 @app.route("/register")
 def register():
+    
     return render_template("Registration.html")
 
 @app.route("/")
 def index():
+    session['home']=True
     return redirect(url_for('home'))
 
 
 '''Session control added'''
 @app.route("/home")
 def home():
+    session['home']=True
     if 'username' in session:
         name=session['username']
         return render_template('home.html', name=name)
@@ -137,6 +141,7 @@ def registeru():
         db.session.add(entry)
         db.session.commit()
         return render_template('login.html')
+    
     return render_template('Registrationu.html')
 
 def allowed_file(imagename):
@@ -179,13 +184,16 @@ def registerb():
         db.session.add(entry2)
         db.session.commit()
         return render_template('login.html')
+  
     return render_template("Registrationb.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
+        
         return render_template('login.html')
+        
     else:
         emailid = request.form.get('email', False)
         password = request.form.get('password',False)
@@ -229,6 +237,7 @@ def login():
             return redirect(url_for('home'))
 @app.route("/profile")
 def profile():
+    session['home']=False
     if 'username' in session:
         if session['blogin']:
             name=session['username']
@@ -263,11 +272,7 @@ def profile():
         
 @app.route('/logout')
 def logout():
-   session.pop('username', None)
-   session.pop('service', None)
-   session.pop('address', None)
-   session.pop('contact', None)
-   session.pop('emailid', None)
+   session.clear()
    return redirect(url_for('home'))
 
 

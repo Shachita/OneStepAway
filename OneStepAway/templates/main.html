@@ -114,28 +114,28 @@
             	
                             </hgroup>
                         
-                            <section class="col-xs-12 col-sm-6 col-md-12">
+                            <section class="col-xs-12 col-sm-6 col-md-12" ">
                                 {% for search in mysearches %}
-                                <article class="search-result row" style="border: 10px whitesmoke">
+                                <article class="search-result row"  >
                                     <div class="col-xs-12 col-sm-12 col-md-3">
-                                        <a href="#" title="Lorem ipsum" class="thumbnail"><img width=60% src="static/img/userimages/{{search.imagename}}"/></a>
+                                        <a href="#" title="{{search.bname}}" class="thumbnail"><img width=60% src="static/img/userimages/{{search.imagename}}"/></a>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-2">
-                                        <ul class="meta-search">
+                                        <ul class="meta-search" >
                                             <li><i class="glyphicon glyphicon-calendar"></i> <span>{{search.oname}}</span></li>
                                             <li><i class="glyphicon glyphicon-time"></i> <span>{{search.ocontact}}</span></li>
                                             <li><i class="glyphicon glyphicon-tags"></i> <span>{{search.oemailid}}</span></li>
                                         </ul>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                                    <div class="col-xs-12 col-sm-12 col-md-7 excerpet" >
                                         <h3><a href="#" title=""></a></h3>
-                                        <p><strong>Business :</strong>{{search.bname }}</p>
+                                        <p class="notranslate" ><strong>Business :</strong>{{search.bname }}</p>
                                         <br>
-                                        <p><strong>Address :</strong>{{search.oaddress}}</p>
+                                        <p class="notranslate"><strong>Address :</strong>{{search.oaddress}}</p>
 
                     
                                         <p>{{search.odescribe}}</p>						
-                                        <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
+                                        <span class="plus"><a href="#" ><i class="glyphicon glyphicon-plus"></i></a></span>
                                     </div>
                                     <span class="clearfix borda"></span>
                                 </article>
