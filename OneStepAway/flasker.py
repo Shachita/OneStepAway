@@ -49,7 +49,19 @@ class Service(db.Model):
     olongitude=db.Column(db.Integer,nullable=True)
     olatitude=db.Column(db.Integer,nullable=True)
     imagename=db.Column(db.String(300))
-    oimage=db.Column(db.LargeBinary)
+    brating=db.Column(db.Integer,nullable=True)
+
+
+class Userreview(db.Model):
+    __tablename__='userreview'
+    #(name, email, bemailid, message, rating , )
+    bemailid=db.Column(db.String(200),primary_key=True)
+    name=db.Column(db.String(80),nullable=True)
+    emailid=db.Column(db.String(80),nullable=True)
+    message=db.Column(db.String(120),nullable=True)
+    rating=db.Column(db.Integer,nullable=True)
+
+
 @app.route("/main",methods=['GET','POST'])
 def main():
     if request.method=='POST':
@@ -162,9 +174,6 @@ def registerb():
         olatitude=request.form.get('olatitude', False)
         olongitude=request.form.get('olongitude', False)
 
-        
-       
-        
 
         service1 = Service.query.filter_by(oemailid=oemailid).first() # if this returns a user, then the email already exists in database
 
@@ -178,8 +187,6 @@ def registerb():
             file.save(os.path.join('static/img/userimages/',imagename))
 
 
-
-        
         entry2=Service(oname=oname, bname=bname,opassword=opassword, ocontact=ocontact, oemailid=oemailid, oservice=oservice, oaddress=oaddress ,odescribe=odescribe, olatitude=olatitude, olongitude=olongitude ,imagename=imagename)
         db.session.add(entry2)
         db.session.commit()
@@ -268,8 +275,40 @@ def profile():
             address=session['address']
 
             return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact)
+@app.route('/rprofile', methods=['GET', 'POST'])
+def rprofile():
+    if request.method == 'POST':
+        selected=request.form.get('selected',False)
+        print(selected)
+        profiler = Service.query.filter_by(oemailid=selected).first()
+        session['bemailid']=profiler.oemailid
+        print(profiler)
+        return render_template('rprofile.html',profiler=profiler)
+    
+    return render_template('rprofile.html')
 
-        
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback():
+    if request.method=='POST':
+        name=request.form.get('name',False)
+        emailid=request.form.get('email',False)
+        rating=request.form.get('rating',False)
+        message=request.form.get('message',False)
+        bemailid=session['bemailid']
+        '''reviews = Userreview.query.filter_by(bemailid=bemailid).all()
+        ratingsum=int(ratinger)
+        for review in reviews:
+            ratingsum=ratingsum+int(review.rating)
+        count=len(reviews)
+        if count!=0:
+            ratingsum=ratingsum/count'''
+        entry3=Userreview(name=name,bemailid=bemailid,message=message,rating=rating,emailid=emailid)
+        db.session.add(entry3)
+        db.session.commit()
+        return redirect(url_for('main'))
+    return render_template('rprofile.html')
+
+
 @app.route('/logout')
 def logout():
    session.clear()

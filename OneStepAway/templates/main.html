@@ -38,8 +38,10 @@
 </head>
 
 <body>
+       
         {% extends "layout.html" %}
         {% block body %}
+        
             <section>
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
@@ -113,8 +115,8 @@
                                 <h1>Search Results</h1>
             	
                             </hgroup>
-                        
-                            <section class="col-xs-12 col-sm-6 col-md-12" ">
+                        <form action="/rprofile" method="POST">
+                            <section class="col-xs-12 col-sm-6 col-md-12" >
                                 {% for search in mysearches %}
                                 <article class="search-result row"  >
                                     <div class="col-xs-12 col-sm-12 col-md-3">
@@ -134,13 +136,14 @@
                                         <p class="notranslate"><strong>Address :</strong>{{search.oaddress}}</p>
 
                     
-                                        <p>{{search.odescribe}}</p>						
+                                        <p>{{search.odescribe}}</p>
+                                        <button type="submit" class="btn btn-info" name="selected" value="{{search.oemailid}}">Rate it</button>
                                         <span class="plus"><a href="#" ><i class="glyphicon glyphicon-plus"></i></a></span>
                                     </div>
                                     <span class="clearfix borda"></span>
                                 </article>
                                 {% endfor %}
-                                		
+                            </form>
                         
                             </section>
                         </div>
