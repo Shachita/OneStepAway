@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Feedback </title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/favicon.ico')}}" type="image/x-icon">
   
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profilecss.css') }}">
 
@@ -12,7 +13,7 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
 
@@ -31,7 +32,7 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="name">Full Name</label>
                   <div class="col-md-9">
-                    <input id="name" name="name" type="text" placeholder="Your name" class="form-control">
+                    <input id="name" name="name" type="text" placeholder="Your name" class="form-control" required>
                   </div>
                 </div>
         
@@ -39,7 +40,7 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="email">Your E-mail</label>
                   <div class="col-md-9">
-                    <input id="email" name="email" type="text" placeholder="Your email" class="form-control">
+                    <input id="email" name="email" type="text" placeholder="Your email" class="form-control" required>
                   </div>
                 </div>
         
@@ -47,7 +48,7 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="message">Your message</label>
                   <div class="col-md-9">
-                    <textarea class="form-control" id="message" name="message" placeholder="Please enter your feedback here..." rows="5"></textarea>
+                    <textarea class="form-control" id="message" name="message" placeholder="Please enter your feedback here..." rows="5" required></textarea>
                   </div>
                 </div>
     
@@ -66,8 +67,8 @@
         <td align="center" valign="top" width="23%">
                 <!-- Form actions -->
                 <div class="form-group">
-                  <div class="col-md-12 text-center">
-                    <img src=" {{ url_for('static',filename='img/logo.png') }}" height="140px" width="270px"/><br/>
+                  <div class="col-md-12 ">
+                    <img width=60% src="static/img/userimages/{{profiler.imagename}}"/>
                     <br><br>
                     <button type="submit" class="btn btn-primary btn-md">Submit</button>
                     <button type="reset" class="btn btn-default btn-md">Clear</button>
@@ -85,79 +86,28 @@
     <div class="container">
         <div class="row">
             <h2>
-                Featured Testimonials</h2>
+                Reviews for {{profiler.oname}}</h2>
+                {% set count = namespace(a=1) %}
+                {% for review in reviewcollection %}
+                
             <div class="col-md-6">
                 <div class="blockquote-box clearfix">
                     <div class="square pull-left">
-                        <img src="http://placehold.it/60/8e44ad/FFF&text=B" alt="" class="" />
+                        <img src="http://placehold.it/60/8e44ad/FFF&text={{ count.a }}" alt="" class="" />
                     </div>
                     <h4>
-                        John Doe</h4>
+                        {{review.name}}</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                        ante.
+                        {{review.message}}
                     </p>
+                    
                 </div>
-                <div class="blockquote-box blockquote-primary clearfix">
-                    <div class="square pull-left">
-                        <span class="glyphicon glyphicon-music glyphicon-lg"></span>
-                    </div>
-                    <h4>
-                        John Doe</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                        ante. 
-                    </p>
-                </div>
-                <div class="blockquote-box blockquote-success clearfix">
-                    <div class="square pull-left">
-                        <span class="glyphicon glyphicon-tree-conifer glyphicon-lg"></span>
-                    </div>
-                    <h4>
-                        John Doe</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                        ante.
-                    </p>
-                </div>
+                
             </div>
-            <div class="col-md-6">
-                <div class="blockquote-box blockquote-info clearfix">
-                    <div class="square pull-left">
-                        <span class="glyphicon glyphicon-info-sign glyphicon-lg"></span>
-                    </div>
-                    <h4>
-                        John Doe</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                        ante.
-                    </p>
-                </div>
-                <div class="blockquote-box blockquote-warning clearfix">
-                    <div class="square pull-left">
-                        <span class="glyphicon glyphicon-warning-sign glyphicon-lg"></span>
-                    </div>
-                    <h4>
-                        John Doe</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                        ante.
-                    </p>
-                </div>
-                <div class="blockquote-box blockquote-danger clearfix">
-                    <div class="square pull-left">
-                        <span class="glyphicon glyphicon-record glyphicon-lg"></span>
-                    </div>
-                    <h4>
-                        John Doe</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                        ante.
-                    </p>
-                </div>
-            </div>
+            {% set count.a = count.a + 1 %}
+            {% endfor %}
         </div>
     </div>
-
+    
 </body>
 </html>

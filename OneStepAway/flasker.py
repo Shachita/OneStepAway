@@ -55,7 +55,8 @@ class Service(db.Model):
 class Userreview(db.Model):
     __tablename__='userreview'
     #(name, email, bemailid, message, rating , )
-    bemailid=db.Column(db.String(200),primary_key=True)
+    no=rating=db.Column(db.Integer,primary_key=True)
+    bemailid=db.Column(db.String(200),nullable=True)
     name=db.Column(db.String(80),nullable=True)
     emailid=db.Column(db.String(80),nullable=True)
     message=db.Column(db.String(120),nullable=True)
@@ -277,15 +278,21 @@ def profile():
             return render_template('myprofile.html', name=name, service=service, emailid=emailid, address=address, contact=contact)
 @app.route('/rprofile', methods=['GET', 'POST'])
 def rprofile():
-    if request.method == 'POST':
-        selected=request.form.get('selected',False)
-        print(selected)
-        profiler = Service.query.filter_by(oemailid=selected).first()
-        session['bemailid']=profiler.oemailid
-        print(profiler)
-        return render_template('rprofile.html',profiler=profiler)
-    
-    return render_template('rprofile.html')
+    try:
+        if request.method == 'POST':
+            selected=request.form.get('selected',False)
+            print(selected)
+            profiler = Service.query.filter_by(oemailid=selected).first()
+            session['bemailid']=profiler.oemailid
+            print(profiler)
+            reviewcollection= Userreview.query.filter_by(bemailid=selected).all()
+           
+            
+            return render_template('rprofile.html',profiler=profiler,reviewcollection=reviewcollection)
+    except:
+        return '<p>Only one review per user</p>'
+        
+    return '<p>Only one review per user</p>'
 
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
