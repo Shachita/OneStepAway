@@ -126,11 +126,8 @@ def home():
     if 'username' in session:
         name=session['username']
         return render_template('home.html', name=name)
-        
-        
+
     else:
-        
-          
         return render_template('home.html') 
 
 @app.route("/registeru",methods=['GET','POST'])
@@ -201,7 +198,7 @@ def login():
     if request.method == 'GET':
         
         return render_template('login.html')
-        
+
     else:
         emailid = request.form.get('email', False)
         password = request.form.get('password',False)
@@ -290,9 +287,9 @@ def rprofile():
             
             return render_template('rprofile.html',profiler=profiler,reviewcollection=reviewcollection)
     except:
-        return '<p>Only one review per user</p>'
+        return '<p>Only one review per user ..Click Back to go to main Search page</p>'
         
-    return '<p>Only one review per user</p>'
+    return '<p>Only one review per user ..Click Back to go to main Search page</p>'
 
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
@@ -302,16 +299,21 @@ def feedback():
         rating=request.form.get('rating',False)
         message=request.form.get('message',False)
         bemailid=session['bemailid']
-        '''reviews = Userreview.query.filter_by(bemailid=bemailid).all()
-        ratingsum=int(ratinger)
+        
+        entry3=Userreview(name=name,bemailid=bemailid,message=message,rating=rating,emailid=emailid)
+        db.session.add(entry3)
+        db.session.commit()
+        reviews = Userreview.query.filter_by(bemailid=bemailid).all()
+        ratingsum=0
         for review in reviews:
             ratingsum=ratingsum+int(review.rating)
         count=len(reviews)
         if count!=0:
-            ratingsum=ratingsum/count'''
-        entry3=Userreview(name=name,bemailid=bemailid,message=message,rating=rating,emailid=emailid)
-        db.session.add(entry3)
+            ratingsum=ratingsum/count
+        servicer = Service.query.filter_by(oemailid=bemailid).first()
+        servicer.brating=ratingsum
         db.session.commit()
+
         return redirect(url_for('main'))
     return render_template('rprofile.html')
 
@@ -323,5 +325,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    #app.run(host='0.0.0.0',port=5002)
-    app.run(debug= True)
+    app.run(host='0.0.0.0',port=5002)
