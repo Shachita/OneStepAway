@@ -41,7 +41,7 @@
        
         {% extends "layout.html" %}
         {% block body %}
-        
+        {% if 'username' in session %}
             <section>
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
@@ -157,7 +157,12 @@
 
 
 
-
+                        {% else %}
+                        <br><br><br><br>
+                        <div class="alert alert-danger" role="alert">
+                           Please login to continue. <a href="{{ url_for('login') }}">Login here</a>
+                          </div>
+                        {% endif %}
     {% endblock %}
 </body>
 </html>

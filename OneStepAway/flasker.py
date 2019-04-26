@@ -283,9 +283,11 @@ def rprofile():
             session['bemailid']=profiler.oemailid
             print(profiler)
             reviewcollection= Userreview.query.filter_by(bemailid=selected).all()
-           
-            
-            return render_template('rprofile.html',profiler=profiler,reviewcollection=reviewcollection)
+            if not reviewcollection:
+                message="No reviews yet . Be the first one to review"
+                return render_template('rprofile.html',profiler=profiler,message=message)
+            else:
+                return render_template('rprofile.html',profiler=profiler,reviewcollection=reviewcollection)
     except:
         return '<p>Only one review per user ..Click Back to go to main Search page</p>'
         
